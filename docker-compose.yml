@@ -4,8 +4,17 @@ services:
   eureka-sv:
     build: eureka-sv
     mem_limit: 512m
+    restart: always
     ports:
       - "8761:8761"
+    networks:
+      - 'bazarmicroservicio'
+  config-sv:
+    build: config-sv
+    mem_limit: 512m
+    restart: always
+    ports:
+      - "8081:8081"
     networks:
       - 'bazarmicroservicio'
 networks:
