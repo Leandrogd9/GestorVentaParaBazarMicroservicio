@@ -5,4 +5,5 @@ spring:
   cloud:
     gateway:
       discovery:
-        locator: true
+        locator:
+          enabled: true
