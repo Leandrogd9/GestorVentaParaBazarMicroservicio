@@ -1,6 +1,6 @@
 spring:
   application:
-    name: cliente-service
+    name: clientes-service
   cloud:
     config:
       enabled: true
