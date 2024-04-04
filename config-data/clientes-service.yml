@@ -13,5 +13,5 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource:
     url: jdbc:mysql://db-cliente-service:3306/bazarclienteservice?useSSL=false&createDatabaseIfNotExist=TRUE&serverTimezone=UTC
-    username: leandrogd
-    password: shikter1997
+    username: root
+    password: 222987
