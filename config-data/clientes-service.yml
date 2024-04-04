@@ -5,3 +5,13 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-sv:8761/eureka
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_URL}
+    password: ${DATABASE_PASSWORD}
