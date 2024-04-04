@@ -12,6 +12,6 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
   datasource:
-    url: jdbc:mysql://db-cliente-service:3306/bazar-cliente-service?useSSL=false&createDatabaseIfNotExist=TRUE&serverTimezone=UTC
+    url: jdbc:mysql://db-cliente-service:3306/bazarclienteservice?useSSL=false&createDatabaseIfNotExist=TRUE&serverTimezone=UTC
     username: leandrogd
     password: shikter1997
