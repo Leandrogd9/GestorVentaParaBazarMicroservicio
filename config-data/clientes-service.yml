@@ -5,13 +5,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-sv:8761/eureka
-
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-  datasource:
-    url: jdbc:mysql://db-cliente-service:3306/bazarclienteservice?useSSL=false&createDatabaseIfNotExist=TRUE&serverTimezone=UTC
-    username: root
-    password: 222987
