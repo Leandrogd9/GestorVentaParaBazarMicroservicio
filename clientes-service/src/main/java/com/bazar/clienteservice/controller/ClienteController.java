@@ -15,11 +15,12 @@ public class ClienteController {
     private IClienteService cliServ;
 
     @GetMapping("/traer")
-    public List<Cliente> getClientes(){
+    public List<Cliente> getClientes() {
         return cliServ.getClientes();
     }
+
     @PostMapping("/clear")
-    public Cliente create(@RequestBody Cliente cliente){
+    public Cliente create(@RequestBody Cliente cliente) {
         return cliServ.create(cliente);
     }
 }
