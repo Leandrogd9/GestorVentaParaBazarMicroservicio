@@ -1,95 +1,77 @@
-version: '2.1'
+version: "3.9"
 
 services:
+  config-sv:
+    build: ./config-sv
+    restart: always
+    ports:
+      - "8888:8888"
+    environment:
+      GIT_USER: ${GIT_USER}
+      GIT_PASSWORD: ${GIT_PASSWORD}
+    networks:
+      - bazarmicroservicio
   eureka-sv:
-    build: eureka-sv
-    mem_limit: 512m
+    build: ./eureka-sv
     restart: always
     ports:
       - "8761:8761"
+    depends_on:
+      config-sv:
+        condition: service_started
     networks:
-      - 'bazarmicroservicio'
-  config-sv:
-    build: config-sv
-    mem_limit: 512m
+      - bazarmicroservicio
+  api-gateway:
+    build: ./api-gateway
     restart: always
     ports:
-      - "8081:8081"
+      - "443:443"
+    depends_on:
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
     networks:
-      - 'bazarmicroservicio'
+      - bazarmicroservicio
+  clientes-service:
+    build: ./clientes-service
+    restart: always
+    ports:
+      - "8082:8082"
+    depends_on:
+      db-cliente-service:
+        condition: service_started
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - bazarmicroservicio
+  db-cliente-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: bazar-cliente-service
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-cliente-service-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
+    ports:
+      - "3306:3306"
+    networks:
+      - bazarmicroservicio
 networks:
   bazarmicroservicio:
-  
-  
-  # db_mysql:
-    # image: mysql
-    # restart: always
-    # container_name: db_mysql
-    # environment:
-      # MYSQL_DATABASE: bazarmicroservicio
-      # MYSQL_ROOT_PASSWORD: \Z=k[z081
-    # volumes:
-      # - db_data:/var/lib/mysql
-    # command: --character-set-server=utf8mb3 --collation-server=utf8mb3_spanish_ci
-    # ports:
-      # - "3306:3306"
-# volumes:
-  # db_data:
-  
-
-
-
-
-# services:
-  # db_microservicio1:
-    # image: mysql
-    # restart: always
-    # container_name: db_microservicio1
-    # environment:
-      # MYSQL_DATABASE: db_microservicio1
-      # MYSQL_ROOT_PASSWORD: 123
-    # volumes:
-      # - db_microservicio1:/var/lib/mysql
-    # command: --character-set-server=utf8mb3 --collation-server=utf8mb3_spanish_ci
-    # ports:
-      # - "3306:3306"
-  # db_microservicio2:
-    # image: mysql
-    # restart: always
-    # container_name: db_microservicio2
-    # environment:
-      # MYSQL_DATABASE: db_microservicio2
-      # MYSQL_ROOT_PASSWORD: 123
-    # volumes:
-      # - db_microservicio2:/var/lib/mysql
-    # command: --character-set-server=utf8mb3 --collation-server=utf8mb3_spanish_ci
-    # ports:
-      # - "3306:3306"
-  # microservicio1:
-    # build: ./microservicio1
-    # restart: always
-    # ports:
-      # - "8080:8080"
-    # environment:
-      # DATABASE_URL: jdbc:mysql://mysql:3306/db_microservicio1?useSSL=false&createDatabaseIfNotExist=TRUE&serverTimezone=UTC
-      # DATABASE_USERNAME: root
-      # DATABASE_PASSWORD: 123
-    # depends_on:
-      # - db_microservicio1
-  # microservicio2:
-    # build: ./microservicio2
-    # restart: always
-    # ports:
-      # - "8081:8081"
-    # environment:
-      # DATABASE_URL: jdbc:mysql://mysql:3306/db_microservicio2?useSSL=false&serverTimezone=UTC
-      # DATABASE_USERNAME: root
-      # DATABASE_PASSWORD: 123
-    # depends_on:
-      # - db_microservicio2
-# volumes:
-  # db_microservicio1:
-  # db_microservicio2:
+volumes:
+  db-cliente-service-data:
 
   
   

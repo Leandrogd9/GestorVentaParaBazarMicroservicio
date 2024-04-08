@@ -23,3 +23,5 @@ Agregado: En comparación con el proyecto anterior, se ha migrado de una arquite
 *Config Server
 
 Además, el proyecto se ha desarrollado y administrado dentro de contenedores de Docker.
+ACLARACIONES:
+* Dentro del docker-compose.yml se utilizan credenciales que no deseo que se hagan publicas, asi que utilice un archivo .env para usar variables de entorno de docker y asi mantener segura dichas credenciales.
