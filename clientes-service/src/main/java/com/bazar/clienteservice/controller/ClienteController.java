@@ -19,7 +19,7 @@ public class ClienteController {
         return cliServ.getClientes();
     }
 
-    @PostMapping("/clear")
+    @PostMapping("/crear")
     public Cliente create(@RequestBody Cliente cliente) {
         return cliServ.create(cliente);
     }
