@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+  #Configuracion de Config Server
   config-sv:
     build: ./config-sv
     restart: always
@@ -11,6 +12,7 @@ services:
       GIT_PASSWORD: ${GIT_PASSWORD}
     networks:
       - bazarmicroservicio
+  #Configuracion de Eureka Server
   eureka-sv:
     build: ./eureka-sv
     restart: always
@@ -21,6 +23,7 @@ services:
         condition: service_started
     networks:
       - bazarmicroservicio
+  #Configuracion de Api Gateway
   api-gateway:
     build: ./api-gateway
     restart: always
@@ -33,13 +36,16 @@ services:
         condition: service_started
     networks:
       - bazarmicroservicio
+  #Configuracion del servicio Clientes con su base de datos correspondiente
   clientes-service:
     build: ./clientes-service
     restart: always
     ports:
-      - "8082:8082"
+      - "8080:8080"
+      - "8081:8080"
+      - "8082:8080"
     depends_on:
-      db-cliente-service:
+      db-clientes-service:
         condition: service_started
       config-sv:
         condition: service_started
@@ -48,30 +54,147 @@ services:
       api-gateway:
         condition: service_started
     environment:
-      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_URL: ${DATABASE_URL_CLIENTES}
       DATABASE_USER: ${MYSQL_USER}
       DATABASE_PASSWORD: ${MYSQL_PASSWORD}
     networks:
       - bazarmicroservicio
-  db-cliente-service:
+  db-clientes-service:
     image: mysql:latest
     restart: always
     environment:
-      MYSQL_DATABASE: bazar-cliente-service
+      MYSQL_DATABASE: bazar-clientes-service
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - db-cliente-service-data:/var/lib/mysql
+      - db-clientes-service-data:/var/lib/mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
     ports:
       - "3306:3306"
     networks:
       - bazarmicroservicio
+  #Configuracion del servicio Ventas con su base de datos correspondiente
+  ventas-service:
+    build: ./ventas-service
+    restart: always
+    ports:
+      - "8083:8083"
+      - "8084:8083"
+      - "8085:8083"
+    depends_on:
+      db-ventas-service:
+        condition: service_started
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL_VENTAS}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - bazarmicroservicio
+  db-ventas-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: bazar-ventas-service
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-ventas-service-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
+    ports:
+      - "3307:3306"
+    networks:
+      - bazarmicroservicio
+  #Configuracion del servicio Detalles-Ventas con su base de datos correspondiente
+  detalles-ventas-service:
+    build: ./detalles-ventas-service
+    restart: always
+    ports:
+      - "8086:8086"
+      - "8087:8086"
+      - "8088:8086"
+    depends_on:
+      db-detalles-ventas-service:
+        condition: service_started
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL_DETALLES_VENTAS}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - bazarmicroservicio
+  db-detalles-ventas-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: bazar-detalles-ventas-service
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-detalles-ventas-service-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
+    ports:
+      - "3308:3306"
+    networks:
+      - bazarmicroservicio
+  #Configuracion del servicio Productos con su base de datos correspondiente
+  productos-service:
+    build: ./productos-service
+    restart: always
+    ports:
+      - "8089:8089"
+      - "8090:8089"
+      - "8091:8089"
+    depends_on:
+      db-productos-service:
+        condition: service_started
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL_PRODUCTOS}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - bazarmicroservicio
+  db-productos-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: bazar-productos-service
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-productos-service-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
+    ports:
+      - "3309:3306"
+    networks:
+      - bazarmicroservicio
 networks:
   bazarmicroservicio:
 volumes:
-  db-cliente-service-data:
+  db-clientes-service-data:
+  db-ventas-service-data:
+  db-detalles-ventas-service-data:
+  db-productos-service-data:
 
   
   
