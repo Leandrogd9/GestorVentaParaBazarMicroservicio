@@ -1,0 +1,16 @@
+server:
+  port: 8083
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-sv:8761/eureka
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: ${DATABASE_URL_VENTAS}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
