@@ -11,6 +11,6 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQLDialect
   datasource:
-    url: ${DATABASE_URL}
+    url: ${DATABASE_URL_CLIENTES}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
