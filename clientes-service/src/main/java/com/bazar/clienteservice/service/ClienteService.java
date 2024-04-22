@@ -14,12 +14,41 @@ public class ClienteService implements IClienteService {
     private ClienteRepository cliRepo;
 
     @Override
-    public Cliente create(Cliente cliente) {
+    public List<Cliente> findAllClientes() {
+        return cliRepo.findAll();
+    }
+
+    @Override
+    public Cliente findByIdCliente(Long id_cliente) {
+        return cliRepo.findById(id_cliente).orElse(null);
+    }
+
+    @Override
+    public Cliente createCliente(Cliente cliente) {
         return cliRepo.save(cliente);
     }
 
     @Override
-    public List<Cliente> getClientes() {
-        return cliRepo.findAll();
+    public Cliente updateCliente(Cliente cliente, Long id_cliente) {
+        Cliente clienteToUpdate = this.findByIdCliente(id_cliente);
+
+        if (clienteToUpdate==null){
+            return null;
+        }
+
+        clienteToUpdate.setNombre(cliente.getNombre());
+        clienteToUpdate.setApellido(cliente.getApellido());
+        clienteToUpdate.setDni(cliente.getDni());
+
+        return cliRepo.save(clienteToUpdate);
+    }
+
+    @Override
+    public Cliente deleteCliente(Long id_cliente) {
+        Cliente cliente = this.findByIdCliente(id_cliente);
+
+        cliRepo.deleteById(id_cliente);
+
+        return cliente;
     }
 }

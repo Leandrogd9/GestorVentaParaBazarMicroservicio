@@ -18,12 +18,9 @@ public class Venta {
     private Long codigo_venta;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
-    @NotEmpty(message = "no puede estar vacio.")
     private Date fecha_venta;
     @Column(nullable = false)
-    @NotEmpty(message = "no puede estar vacio.")
     private Double total;
     @Column(nullable = false)
-    @NotEmpty(message = "no puede estar vacio.")
     private Long id_cliente;
 }
