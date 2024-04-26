@@ -14,3 +14,7 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
+
+feign:
+  detalleapi:
+    url: http://api-gateway:443/detalles-ventas-service/detalles
