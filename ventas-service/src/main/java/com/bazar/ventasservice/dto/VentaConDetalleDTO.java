@@ -6,12 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class VentaConDetalleDTO {
+
+    private Long codigo_venta;
+    private Date fecha_venta;
+    private Double total;
 
     @NotNull(message = "no puede estar vacio.")
     private Long id_cliente;

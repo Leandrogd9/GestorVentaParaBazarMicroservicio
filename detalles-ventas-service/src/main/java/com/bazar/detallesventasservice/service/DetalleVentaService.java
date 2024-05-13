@@ -14,12 +14,17 @@ public class DetalleVentaService implements IDetalleVentaService{
     private DetalleVentaRepository detalleRepo;
 
     @Override
-    public List<DetalleVenta> findAllProductos() {
-        return detalleRepo.findAll();
+    public List<DetalleVenta> findAllDetallesByCodigoVenta(Long codigo_venta) {
+        return detalleRepo.findAllDetallesByCodigoVenta(codigo_venta);
     }
 
     @Override
     public DetalleVenta createDetalle(DetalleVenta detalle) {
         return detalleRepo.save(detalle);
+    }
+
+    @Override
+    public void deleteDetalle(Long codigo_venta) {
+        detalleRepo.deleteByCodigoVenta(codigo_venta);
     }
 }

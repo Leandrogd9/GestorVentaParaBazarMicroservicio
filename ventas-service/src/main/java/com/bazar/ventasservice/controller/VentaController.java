@@ -5,15 +5,11 @@ import com.bazar.ventasservice.model.Venta;
 import com.bazar.ventasservice.service.IVentaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/ventas")
@@ -29,29 +25,42 @@ public class VentaController {
 
     @PostMapping("/crear")
     public ResponseEntity<?> create(@Valid @RequestBody VentaConDetalleDTO venta, BindingResult result){
-        Venta newVenta = null;
+        Venta newVenta;
+
+        newVenta = ventaServ.createVenta(venta, result);
+
+        return new ResponseEntity<>(newVenta, HttpStatus.CREATED);
+    }
+
+    /*@DeleteMapping("/eliminar/{codigo_venta}")
+    public ResponseEntity<?> deleteVenta(@PathVariable Long codigo_venta){
         Map<String, Object> response = new HashMap<>();
-
-        if (result.hasErrors()){
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
-                    .toList();
-
-            response.put("errors", errors);
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-        }
+        VentaConDetalleDTO venta = null;
 
         try{
-            newVenta = ventaServ.createVenta(venta);
+            venta = ventaServ.deleteVenta(codigo_venta);
         }catch (DataAccessException e){
-            response.put("connection message", "Error al realizar el insert a la base de datos!");
+            response.put("connection message", "Error al realizar el delete a la base de datos!");
             response.put("connection", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        response.put("success message", "La venta se registro correctamente!");
-        response.put("success", newVenta);
+        if (venta==null){
+            response.put("error", "La venta ID: "+codigo_venta.toString()+" no existe en la base de datos!");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+
+        response.put("success message", "La venta se elimino correctamente!");
+        response.put("success", venta);
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+    }
+     */
+    @DeleteMapping("/eliminar/{codigo_venta}")
+    public ResponseEntity<?> deleteVenta(@PathVariable Long codigo_venta){
+        VentaConDetalleDTO venta;
+
+        venta = ventaServ.deleteVenta(codigo_venta);
+
+        return new ResponseEntity<>(venta,HttpStatus.OK);
     }
 }

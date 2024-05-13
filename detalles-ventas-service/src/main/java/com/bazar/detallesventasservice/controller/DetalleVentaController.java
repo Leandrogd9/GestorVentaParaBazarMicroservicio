@@ -2,17 +2,11 @@ package com.bazar.detallesventasservice.controller;
 
 import com.bazar.detallesventasservice.model.DetalleVenta;
 import com.bazar.detallesventasservice.service.IDetalleVentaService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/detalles")
@@ -21,36 +15,23 @@ public class DetalleVentaController {
     @Autowired
     private IDetalleVentaService detalleServ;
 
-    @GetMapping()
-    public List<DetalleVenta> findAllDetalles(){
-        return detalleServ.findAllProductos();
+    @GetMapping("/{codigo_venta}")
+    public List<DetalleVenta> findAllDetallesByCodigoVenta (@PathVariable Long codigo_venta){
+        return detalleServ.findAllDetallesByCodigoVenta(codigo_venta);
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<?> createDetalle(@Valid @RequestBody DetalleVenta detalle, BindingResult result){
-        DetalleVenta newDetalle = null;
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity createDetalle(@RequestBody DetalleVenta detalle){
+        DetalleVenta newDetalle;
 
-        if (result.hasErrors()){
-            List<String> errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
-                    .toList();
+        newDetalle = detalleServ.createDetalle(detalle);
 
-            response.put("errors", errors);
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(newDetalle, HttpStatus.CREATED);
+    }
 
-        try{
-            newDetalle = detalleServ.createDetalle(detalle);
-        }catch (DataAccessException e){
-            response.put("connection message", "Error al realizar el insert a la base de datos!");
-            response.put("connection", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @DeleteMapping("/eliminar/{codigo_venta}")
+    public void deleteDetalle(@PathVariable Long codigo_venta){
 
-        response.put("success message", "El Detalle de venta se registro correctamente!");
-        response.put("success", newDetalle);
-        return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+        detalleServ.deleteDetalle(codigo_venta);
     }
 }
