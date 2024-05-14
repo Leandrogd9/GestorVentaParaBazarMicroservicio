@@ -17,4 +17,10 @@ public interface IVentaService {
     void requestValidation (BindingResult result);
 
     Venta checkExistence(Long codigo_venta);
+
+    void fallbackfindByIdVenta(Throwable t);
+
+    void fallbackcreateVenta(Throwable t);
+
+    void fallbackdeleteVenta(Throwable t);
 }

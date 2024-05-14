@@ -4,11 +4,14 @@ import com.bazar.ventasservice.dto.DetalleVentaDTO;
 import com.bazar.ventasservice.dto.ProductoDTO;
 import com.bazar.ventasservice.dto.VentaConDetalleDTO;
 import com.bazar.ventasservice.exception.CheckExistenceException;
+import com.bazar.ventasservice.exception.FallbackException;
 import com.bazar.ventasservice.exception.RequestException;
 import com.bazar.ventasservice.exception.StockException;
 import com.bazar.ventasservice.model.Venta;
 import com.bazar.ventasservice.repository.DetalleVentaAPI;
 import com.bazar.ventasservice.repository.VentaRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,8 @@ public class VentaService implements IVentaService{
     }
 
     @Override
+    @CircuitBreaker(name = "detalles-ventas-service", fallbackMethod = "fallbackfindByIdVenta")
+    @Retry(name = "detalles-ventas-service")
     public VentaConDetalleDTO findByIdVenta(Long codigo_venta) {
         ModelMapper modelMapper = new ModelMapper();
 
@@ -44,16 +49,14 @@ public class VentaService implements IVentaService{
         List<DetalleVentaDTO> detallesVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
 
         VentaConDetalleDTO ventaDetalle = modelMapper.map(venta, VentaConDetalleDTO.class);
-        //ventaDetalle.setCodigo_venta(venta.getCodigo_venta());
-        //ventaDetalle.setFecha_venta(venta.getFecha_venta());
-        //ventaDetalle.setTotal(venta.getTotal());
-        //ventaDetalle.setId_cliente(venta.getId_cliente());
         ventaDetalle.setDetallesDeVenta(detallesVenta);
 
         return ventaDetalle;
     }
 
     @Override
+    @CircuitBreaker(name = "create", fallbackMethod = "fallbackcreateVenta")
+    @Retry(name = "create")
     public Venta createVenta(VentaConDetalleDTO venta) {
         List<String> errors = new LinkedList<>();
         Venta newVenta = new Venta();
@@ -100,6 +103,8 @@ public class VentaService implements IVentaService{
     }
 
     @Override
+    @CircuitBreaker(name = "venta", fallbackMethod = "fallbackdeleteVenta")
+    @Retry(name = "venta")
     public VentaConDetalleDTO deleteVenta(Long codigo_venta) {
         VentaConDetalleDTO deletedVenta = this.findByIdVenta(codigo_venta);
         List<DetalleVentaDTO> detalleVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
@@ -141,5 +146,20 @@ public class VentaService implements IVentaService{
         }
 
         return venta;
+    }
+
+    @Override
+    public void fallbackfindByIdVenta(Throwable t) {
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service: "+t.getMessage());
+    }
+
+    @Override
+    public void fallbackcreateVenta(Throwable t) {
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
+    }
+
+    @Override
+    public void fallbackdeleteVenta(Throwable t) {
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
     }
 }

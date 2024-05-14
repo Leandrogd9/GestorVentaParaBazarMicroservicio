@@ -2,6 +2,7 @@ package com.bazar.ventasservice.controller;
 
 import com.bazar.ventasservice.dto.CustomErrorResponse;
 import com.bazar.ventasservice.exception.CheckExistenceException;
+import com.bazar.ventasservice.exception.FallbackException;
 import com.bazar.ventasservice.exception.RequestException;
 import com.bazar.ventasservice.exception.StockException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -61,5 +62,17 @@ public class ControllerAdvice {
                 .path(request.getRequestURI())
                 .build();
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FallbackException.class)
+    public ResponseEntity<CustomErrorResponse> runtimeExceptionHandler(FallbackException ex, HttpServletRequest request){
+        CustomErrorResponse error = CustomErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error("Internal Server Error")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
