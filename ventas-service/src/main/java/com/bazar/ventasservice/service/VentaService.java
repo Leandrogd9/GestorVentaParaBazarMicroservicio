@@ -149,17 +149,17 @@ public class VentaService implements IVentaService{
     }
 
     @Override
-    public void fallbackfindByIdVenta(Throwable t) {
+    public VentaConDetalleDTO fallbackfindByIdVenta(Throwable t) {
         throw new FallbackException("Fallo la conexion con detalles-ventas-service: "+t.getMessage());
     }
 
     @Override
-    public void fallbackcreateVenta(Throwable t) {
+    public Venta fallbackcreateVenta(Throwable t) {
         throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
     }
 
     @Override
-    public void fallbackdeleteVenta(Throwable t) {
+    public VentaConDetalleDTO fallbackdeleteVenta(Throwable t) {
         throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
     }
 }

@@ -18,9 +18,9 @@ public interface IVentaService {
 
     Venta checkExistence(Long codigo_venta);
 
-    void fallbackfindByIdVenta(Throwable t);
+    VentaConDetalleDTO fallbackfindByIdVenta(Throwable t);
 
-    void fallbackcreateVenta(Throwable t);
+    Venta fallbackcreateVenta(Throwable t);
 
-    void fallbackdeleteVenta(Throwable t);
+    VentaConDetalleDTO fallbackdeleteVenta(Throwable t);
 }
