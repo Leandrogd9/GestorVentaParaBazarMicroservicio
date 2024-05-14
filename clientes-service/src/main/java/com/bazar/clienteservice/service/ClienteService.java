@@ -1,9 +1,12 @@
 package com.bazar.clienteservice.service;
 
+import com.bazar.clienteservice.exception.CheckExistenceException;
+import com.bazar.clienteservice.exception.RequestException;
 import com.bazar.clienteservice.model.Cliente;
 import com.bazar.clienteservice.respository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class ClienteService implements IClienteService {
 
     @Override
     public Cliente findByIdCliente(Long id_cliente) {
-        return cliRepo.findById(id_cliente).orElse(null);
+        return this.checkExistence(id_cliente);
     }
 
     @Override
@@ -30,11 +33,7 @@ public class ClienteService implements IClienteService {
 
     @Override
     public Cliente updateCliente(Cliente cliente, Long id_cliente) {
-        Cliente clienteToUpdate = this.findByIdCliente(id_cliente);
-
-        if (clienteToUpdate==null){
-            return null;
-        }
+        Cliente clienteToUpdate = this.checkExistence(id_cliente);
 
         clienteToUpdate.setNombre(cliente.getNombre());
         clienteToUpdate.setApellido(cliente.getApellido());
@@ -45,9 +44,34 @@ public class ClienteService implements IClienteService {
 
     @Override
     public Cliente deleteCliente(Long id_cliente) {
-        Cliente cliente = this.findByIdCliente(id_cliente);
+        Cliente cliente = this.checkExistence(id_cliente);
 
         cliRepo.deleteById(id_cliente);
+
+        return cliente;
+    }
+
+    @Override
+    public void requestValidation(BindingResult result) {
+        List<String> errors;
+
+        if (result.hasErrors()){
+            errors = result.getFieldErrors()
+                    .stream()
+                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
+                    .toList();
+
+            throw new RequestException(errors);
+        }
+    }
+
+    @Override
+    public Cliente checkExistence(Long id_cliente) {
+        Cliente cliente = cliRepo.findById(id_cliente).orElse(null);
+
+        if(cliente == null){
+            throw new CheckExistenceException("El id del cliente ingresado no esta relacionado a ningun cliente.");
+        }
 
         return cliente;
     }

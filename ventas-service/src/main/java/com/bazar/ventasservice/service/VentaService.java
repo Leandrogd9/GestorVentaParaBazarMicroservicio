@@ -9,6 +9,7 @@ import com.bazar.ventasservice.exception.StockException;
 import com.bazar.ventasservice.model.Venta;
 import com.bazar.ventasservice.repository.DetalleVentaAPI;
 import com.bazar.ventasservice.repository.VentaRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -35,27 +36,31 @@ public class VentaService implements IVentaService{
     }
 
     @Override
-    public Venta findByIdVenta(Long codigo_venta) {
-        return ventaRepo.findById(codigo_venta).orElse(null);
+    public VentaConDetalleDTO findByIdVenta(Long codigo_venta) {
+        ModelMapper modelMapper = new ModelMapper();
+
+        Venta venta = this.checkExistence(codigo_venta);
+
+        List<DetalleVentaDTO> detallesVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
+
+        VentaConDetalleDTO ventaDetalle = modelMapper.map(venta, VentaConDetalleDTO.class);
+        //ventaDetalle.setCodigo_venta(venta.getCodigo_venta());
+        //ventaDetalle.setFecha_venta(venta.getFecha_venta());
+        //ventaDetalle.setTotal(venta.getTotal());
+        //ventaDetalle.setId_cliente(venta.getId_cliente());
+        ventaDetalle.setDetallesDeVenta(detallesVenta);
+
+        return ventaDetalle;
     }
 
     @Override
-    public Venta createVenta(VentaConDetalleDTO venta, BindingResult result) {
+    public Venta createVenta(VentaConDetalleDTO venta) {
         List<String> errors = new LinkedList<>();
         Venta newVenta = new Venta();
         double total = 0.0;
         ProductoDTO producto;
         DetalleVentaDTO newDetalle = new DetalleVentaDTO();
         Venta ventaGuardada;
-
-        if (result.hasErrors()){
-            errors = result.getFieldErrors()
-                    .stream()
-                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
-                    .toList();
-
-            throw new RequestException(errors);
-        }
 
         for (DetalleVentaDTO detalle : venta.getDetallesDeVenta()) {
             producto = apiConsumir.getForObject("http://api-gateway:443/productos-service/productos/" + detalle.getCodigo_producto(), ProductoDTO.class);
@@ -96,26 +101,45 @@ public class VentaService implements IVentaService{
 
     @Override
     public VentaConDetalleDTO deleteVenta(Long codigo_venta) {
-        VentaConDetalleDTO deletedVenta = new VentaConDetalleDTO();
+        VentaConDetalleDTO deletedVenta = this.findByIdVenta(codigo_venta);
+        List<DetalleVentaDTO> detalleVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
+        ProductoDTO producto;
 
-        Venta venta = this.findByIdVenta(codigo_venta);
+        for(DetalleVentaDTO detalle : detalleVenta){
+            producto = apiConsumir.getForObject("http://api-gateway:443/productos-service/productos/" + detalle.getCodigo_producto(), ProductoDTO.class);
+            producto.setCantidad_disponible(producto.getCantidad_disponible() + detalle.getCantidad_comprada());
 
-        if(venta == null){
-            throw new CheckExistenceException("La venta que quiere eliminar no existe");
+            apiConsumir.put("http://api-gateway:443/productos-service/productos/actualizar/"+producto.getCodigo_producto(), producto);
         }
-
-        List<DetalleVentaDTO> detallesVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
 
         ventaRepo.deleteById(codigo_venta);
         detalleVentaAPI.deleteDetalle(codigo_venta);
 
-        deletedVenta.setCodigo_venta(venta.getCodigo_venta());
-        deletedVenta.setFecha_venta(venta.getFecha_venta());
-        deletedVenta.setTotal(venta.getTotal());
-        deletedVenta.setId_cliente(venta.getId_cliente());
-        deletedVenta.setDetallesDeVenta(detallesVenta);
-
         return deletedVenta;
     }
 
+    @Override
+    public void requestValidation(BindingResult result) {
+        List<String> errors;
+
+        if (result.hasErrors()){
+            errors = result.getFieldErrors()
+                    .stream()
+                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
+                    .toList();
+
+            throw new RequestException(errors);
+        }
+    }
+
+    @Override
+    public Venta checkExistence(Long codigo_venta) {
+        Venta venta = ventaRepo.findById(codigo_venta).orElse(null);
+
+        if(venta == null){
+            throw new CheckExistenceException("El codigo de venta ingresado no esta relacionado a ninguna venta.");
+        }
+
+        return venta;
+    }
 }
