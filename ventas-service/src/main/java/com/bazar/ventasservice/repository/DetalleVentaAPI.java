@@ -16,4 +16,7 @@ public interface DetalleVentaAPI {
 
     @GetMapping("/{codigo_venta}")
     List<DetalleVentaDTO> findAllDetallesByCodigoVenta (@PathVariable ("codigo_venta") Long codigo_venta);
+
+    @GetMapping("/cantidad_detalle/{codigo_venta}")
+    int findCantidadProductos(@PathVariable ("codigo_venta") Long codigo_venta);
 }

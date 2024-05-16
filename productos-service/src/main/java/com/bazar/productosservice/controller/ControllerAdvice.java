@@ -2,6 +2,7 @@ package com.bazar.productosservice.controller;
 
 import com.bazar.productosservice.dto.CustomErrorResponse;
 import com.bazar.productosservice.exception.CheckExistenceException;
+import com.bazar.productosservice.exception.FaltaStockException;
 import com.bazar.productosservice.exception.RequestException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataAccessException;
@@ -46,6 +47,18 @@ public class ControllerAdvice {
 
     @ExceptionHandler(CheckExistenceException.class)
     public ResponseEntity<CustomErrorResponse> runtimeExceptionHandler(CheckExistenceException ex, HttpServletRequest request){
+        CustomErrorResponse error = CustomErrorResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.NOT_FOUND.value())
+                .error("Not Found")
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(FaltaStockException.class)
+    public ResponseEntity<CustomErrorResponse> runtimeExceptionHandler(FaltaStockException ex, HttpServletRequest request){
         CustomErrorResponse error = CustomErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.NOT_FOUND.value())

@@ -19,6 +19,11 @@ public class DetalleVentaService implements IDetalleVentaService{
     }
 
     @Override
+    public int findCantidadProductos(Long codigo_venta) {
+        return detalleRepo.findCantidadProductos(codigo_venta);
+    }
+
+    @Override
     public DetalleVenta createDetalle(DetalleVenta detalle) {
         return detalleRepo.save(detalle);
     }

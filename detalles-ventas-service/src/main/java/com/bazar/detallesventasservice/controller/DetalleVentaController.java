@@ -20,6 +20,11 @@ public class DetalleVentaController {
         return detalleServ.findAllDetallesByCodigoVenta(codigo_venta);
     }
 
+    @GetMapping("/cantidad_detalle/{codigo_venta}")
+    public int findCantidadProductos(@PathVariable ("codigo_venta") Long codigo_venta){
+        return detalleServ.findCantidadProductos(codigo_venta);
+    }
+
     @PostMapping("/crear")
     public ResponseEntity createDetalle(@RequestBody DetalleVenta detalle){
         DetalleVenta newDetalle;

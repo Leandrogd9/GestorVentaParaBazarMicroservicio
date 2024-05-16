@@ -4,10 +4,11 @@ import com.bazar.clienteservice.exception.CheckExistenceException;
 import com.bazar.clienteservice.exception.RequestException;
 import com.bazar.clienteservice.model.Cliente;
 import com.bazar.clienteservice.respository.ClienteRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-
 import java.util.List;
 
 @Service
@@ -17,8 +18,8 @@ public class ClienteService implements IClienteService {
     private ClienteRepository cliRepo;
 
     @Override
-    public List<Cliente> findAllClientes() {
-        return cliRepo.findAll();
+    public Page<Cliente> findAllClientes(Pageable pageable) {
+        return cliRepo.findAll(pageable);
     }
 
     @Override

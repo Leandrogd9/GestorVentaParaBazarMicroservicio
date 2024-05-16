@@ -1,14 +1,18 @@
 package com.bazar.productosservice.service;
 
 import com.bazar.productosservice.model.Producto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 public interface IProductoService {
-    List<Producto> findAllProductos();
+    Page<Producto> findAllProductos(Pageable pageable);
 
     Producto findByIdProducto(Long codigo_producto);
+
+    Page<Producto> findByStockFaltante(Pageable pageable);
 
     Producto create(Producto producto);
 

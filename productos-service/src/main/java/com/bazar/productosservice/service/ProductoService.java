@@ -1,9 +1,12 @@
 package com.bazar.productosservice.service;
 import com.bazar.productosservice.exception.CheckExistenceException;
+import com.bazar.productosservice.exception.FaltaStockException;
 import com.bazar.productosservice.exception.RequestException;
 import com.bazar.productosservice.model.Producto;
 import com.bazar.productosservice.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
@@ -15,13 +18,24 @@ public class ProductoService implements IProductoService{
     private ProductoRepository produRepo;
 
     @Override
-    public List<Producto> findAllProductos() {
-        return produRepo.findAll();
+    public Page<Producto> findAllProductos(Pageable pageable) {
+        return produRepo.findAll(pageable);
     }
 
     @Override
     public Producto findByIdProducto(Long codigo_producto) {
         return this.checkExistence(codigo_producto);
+    }
+
+    @Override
+    public Page<Producto> findByStockFaltante(Pageable pageable) {
+        Page<Producto> productos = produRepo.findByStockFaltante(pageable);
+
+        if(!productos.hasContent()){
+            throw new FaltaStockException("No hay productos que su cantidad disponible sea menor a 5.");
+        }
+
+        return productos;
     }
 
     @Override

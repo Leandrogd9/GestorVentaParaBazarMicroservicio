@@ -19,4 +19,7 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVenta, Long
     @Modifying
     @Query("delete from DetalleVenta dv where dv.codigo_venta = :codigo_venta")
     void deleteByCodigoVenta(@Param("codigo_venta") Long codigo_venta);
+
+    @Query("select sum(dv.cantidad_comprada) from DetalleVenta dv where dv.codigo_venta = :codigo_venta")
+    int findCantidadProductos(Long codigo_venta);
 }

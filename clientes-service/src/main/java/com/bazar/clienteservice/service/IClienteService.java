@@ -1,13 +1,13 @@
 package com.bazar.clienteservice.service;
 
 import com.bazar.clienteservice.model.Cliente;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.BindingResult;
-
-import java.util.List;
 
 public interface IClienteService {
 
-    List<Cliente> findAllClientes();
+    Page<Cliente> findAllClientes(Pageable pageable);
 
     Cliente findByIdCliente(Long id_cliente);
 
