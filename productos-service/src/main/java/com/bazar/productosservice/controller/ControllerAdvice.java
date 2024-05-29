@@ -41,7 +41,7 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(RequestException.class)
-    public ResponseEntity runtimeExceptionHandler(RequestException ex){
+    public ResponseEntity<?> runtimeExceptionHandler(RequestException ex){
         return new ResponseEntity<>(ex.getMessagesList(), HttpStatus.BAD_REQUEST);
     }
 

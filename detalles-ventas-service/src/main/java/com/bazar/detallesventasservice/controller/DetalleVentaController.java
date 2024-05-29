@@ -26,7 +26,7 @@ public class DetalleVentaController {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity createDetalle(@RequestBody DetalleVenta detalle){
+    public ResponseEntity<?> createDetalle(@RequestBody DetalleVenta detalle){
         DetalleVenta newDetalle;
 
         newDetalle = detalleServ.createDetalle(detalle);

@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
@@ -33,7 +32,7 @@ public class ProductoController {
     }
 
     @GetMapping("/falta_stock")
-    public ResponseEntity findByStockFaltante(@PageableDefault Pageable pageable){
+    public ResponseEntity<?> findByStockFaltante(@PageableDefault Pageable pageable){
         Page<Producto> productos = produServ.findByStockFaltante(pageable);
         return new ResponseEntity<>(productos, HttpStatus.OK);
     }

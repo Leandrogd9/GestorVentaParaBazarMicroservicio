@@ -24,7 +24,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id_cliente}")
-    public ResponseEntity findByIdCliente(@PathVariable Long id_cliente){
+    public ResponseEntity<?> findByIdCliente(@PathVariable Long id_cliente){
         Cliente cliente = cliServ.findByIdCliente(id_cliente);
 
         return new ResponseEntity<>(cliente, HttpStatus.OK);

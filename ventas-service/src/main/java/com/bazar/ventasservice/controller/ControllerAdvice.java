@@ -39,12 +39,12 @@ public class ControllerAdvice {
     }
 
     @ExceptionHandler(RequestException.class)
-    public ResponseEntity runtimeExceptionHandler(RequestException ex){
+    public ResponseEntity<?> runtimeExceptionHandler(RequestException ex){
         return new ResponseEntity<>(ex.getMessagesList(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(StockException.class)
-    public ResponseEntity runtimeExceptionHandler(StockException ex){
+    public ResponseEntity<?> runtimeExceptionHandler(StockException ex){
         return new ResponseEntity<>(ex.getMessagesList(), HttpStatus.BAD_REQUEST);
     }
 

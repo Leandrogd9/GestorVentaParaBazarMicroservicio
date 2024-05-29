@@ -29,32 +29,32 @@ public class VentaController {
     }
 
     @GetMapping("/{codigo_venta}")
-    public ResponseEntity findById(@PathVariable Long codigo_venta){
+    public ResponseEntity<?> findById(@PathVariable Long codigo_venta){
         VentaConDetalleDTO venta = ventaServ.findByIdVenta(codigo_venta);
 
         return new ResponseEntity<>(venta, HttpStatus.OK);
     }
 
     @GetMapping("/productos/{codigo_venta}")
-    public ResponseEntity findProductoById(@PathVariable Long codigo_venta){
+    public ResponseEntity<?> findProductoById(@PathVariable Long codigo_venta){
         List<DetalleProductoDTO> detalles = ventaServ.findProductoById(codigo_venta);
         return new ResponseEntity<>(detalles, HttpStatus.OK);
     }
 
     @GetMapping("/fecha/{fecha_venta}")
-    public ResponseEntity findByFechaVenta(@PathVariable String fecha_venta){
+    public ResponseEntity<?> findByFechaVenta(@PathVariable String fecha_venta){
         VentaFechaDTO ventaFecha = ventaServ.findByFechaVenta(fecha_venta);
         return new ResponseEntity<>(ventaFecha, HttpStatus.OK);
     }
 
     @GetMapping("/mayor_venta")
-    public ResponseEntity findMayorVenta(){
+    public ResponseEntity<?> findMayorVenta(){
         MayorVentaDTO mayorVenta = ventaServ.findMayorVenta();
         return new ResponseEntity<>(mayorVenta, HttpStatus.OK);
     }
 
     @PostMapping("/crear")
-    public ResponseEntity create(@Valid @RequestBody VentaConDetalleDTO venta, BindingResult result){
+    public ResponseEntity<?> create(@Valid @RequestBody VentaConDetalleDTO venta, BindingResult result){
         Venta newVenta;
 
         ventaServ.requestValidation(result);
@@ -65,7 +65,7 @@ public class VentaController {
     }
 
     @DeleteMapping("/eliminar/{codigo_venta}")
-    public ResponseEntity deleteVenta(@PathVariable Long codigo_venta){
+    public ResponseEntity<?> deleteVenta(@PathVariable Long codigo_venta){
         VentaConDetalleDTO venta;
 
         venta = ventaServ.deleteVenta(codigo_venta);
