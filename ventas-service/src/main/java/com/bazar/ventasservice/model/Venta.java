@@ -23,5 +23,5 @@ public class Venta {
     @Column(nullable = false)
     private Long id_cliente;
 
-    //Prueba
+    //Ahora probamos desde la compu
 }
