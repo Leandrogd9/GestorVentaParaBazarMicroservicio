@@ -24,4 +24,5 @@ public class Venta {
     private Long id_cliente;
 
     //Ahora probamos desde la compu
+    //Tambien tenemos esto
 }
