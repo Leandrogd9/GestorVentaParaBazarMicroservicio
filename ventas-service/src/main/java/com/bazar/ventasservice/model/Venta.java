@@ -22,4 +22,6 @@ public class Venta {
     private Double total;
     @Column(nullable = false)
     private Long id_cliente;
+
+    //Prueba
 }
