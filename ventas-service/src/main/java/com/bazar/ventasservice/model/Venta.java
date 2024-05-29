@@ -22,7 +22,4 @@ public class Venta {
     private Double total;
     @Column(nullable = false)
     private Long id_cliente;
-
-    //Ahora probamos desde la compu
-    //Tambien tenemos esto
 }
