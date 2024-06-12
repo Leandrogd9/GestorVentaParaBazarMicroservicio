@@ -1,4 +1,5 @@
 package com.bazar.ventasservice.service;
+
 import com.bazar.ventasservice.dto.DetalleProductoDTO;
 import com.bazar.ventasservice.dto.MayorVentaDTO;
 import com.bazar.ventasservice.dto.VentaConDetalleDTO;
@@ -32,7 +33,7 @@ public interface IVentaService {
 
     //VALIDACIONES
 
-    void requestValidation (BindingResult result);
+    void requestValidation(BindingResult result);
 
     Venta checkExistence(Long codigo_venta);
 

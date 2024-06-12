@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
     @Bean("apiConsumir")
-    public RestTemplate registrarRestTemplate(){
+    public RestTemplate registrarRestTemplate() {
         return new RestTemplate();
     }
 }

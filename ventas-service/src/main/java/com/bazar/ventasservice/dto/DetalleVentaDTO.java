@@ -1,4 +1,5 @@
 package com.bazar.ventasservice.dto;
+
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

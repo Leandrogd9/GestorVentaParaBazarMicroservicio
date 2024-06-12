@@ -178,6 +178,42 @@ services:
       - "3309:3306"
     networks:
       - bazarmicroservicio
+  #Configuracion del auth Clientes con su base de datos correspondiente
+  auth-service:
+    build: ./auth-service
+    restart: always
+    ports:
+      - "8084:8084"
+    depends_on:
+      db-auth-service:
+        condition: service_started
+      config-sv:
+        condition: service_started
+      eureka-sv:
+        condition: service_started
+      api-gateway:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL_AUTH}
+      DATABASE_USER: ${MYSQL_USER}
+      DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - bazarmicroservicio
+  db-auth-service:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: bazar-auth-service
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-auth-service-data:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_spanish_ci
+    ports:
+      - "3310:3306"
+    networks:
+      - bazarmicroservicio
 networks:
   bazarmicroservicio:
 volumes:
@@ -185,6 +221,7 @@ volumes:
   db-ventas-service-data:
   db-detalles-ventas-service-data:
   db-productos-service-data:
+  db-auth-service-data:
 
   
   

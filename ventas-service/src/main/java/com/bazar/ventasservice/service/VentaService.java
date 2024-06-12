@@ -15,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Service
-public class VentaService implements IVentaService{
+public class VentaService implements IVentaService {
 
     @Autowired
     private VentaRepository ventaRepo;
@@ -71,7 +74,7 @@ public class VentaService implements IVentaService{
 
         List<DetalleVentaDTO> detalles = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
 
-        for (DetalleVentaDTO detalle: detalles){
+        for (DetalleVentaDTO detalle : detalles) {
             producto = apiConsumir.getForObject("http://api-gateway:443/productos-service/productos/" + detalle.getCodigo_producto(), ProductoDTO.class);
 
             detalleProducto = modelMapper.map(producto, DetalleProductoDTO.class);
@@ -88,7 +91,7 @@ public class VentaService implements IVentaService{
         LocalDate fecha = LocalDate.parse(fecha_venta, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
         VentaFechaDTO consulta = ventaRepo.findByFechaVenta(fecha);
-        if(consulta.getCantidad_ventas() == 0){
+        if (consulta.getCantidad_ventas() == 0) {
             throw new VentaFechaException("No hay ventas registradas en la fecha ingresada.");
         }
 
@@ -136,7 +139,7 @@ public class VentaService implements IVentaService{
             }
         }
 
-        if(!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             throw new StockException(errors);
         }
 
@@ -145,7 +148,7 @@ public class VentaService implements IVentaService{
             total += producto.getCosto() * detalle.getCantidad_comprada();
             producto.setCantidad_disponible(producto.getCantidad_disponible() - detalle.getCantidad_comprada());
 
-            apiConsumir.put("http://api-gateway:443/productos-service/productos/actualizar/"+producto.getCodigo_producto(), producto);
+            apiConsumir.put("http://api-gateway:443/productos-service/productos/actualizar/" + producto.getCodigo_producto(), producto);
         }
 
         newVenta.setFecha_venta(LocalDateTime.now());
@@ -173,11 +176,11 @@ public class VentaService implements IVentaService{
         List<DetalleVentaDTO> detalleVenta = detalleVentaAPI.findAllDetallesByCodigoVenta(codigo_venta);
         ProductoDTO producto;
 
-        for(DetalleVentaDTO detalle : detalleVenta){
+        for (DetalleVentaDTO detalle : detalleVenta) {
             producto = apiConsumir.getForObject("http://api-gateway:443/productos-service/productos/" + detalle.getCodigo_producto(), ProductoDTO.class);
             producto.setCantidad_disponible(producto.getCantidad_disponible() + detalle.getCantidad_comprada());
 
-            apiConsumir.put("http://api-gateway:443/productos-service/productos/actualizar/"+producto.getCodigo_producto(), producto);
+            apiConsumir.put("http://api-gateway:443/productos-service/productos/actualizar/" + producto.getCodigo_producto(), producto);
         }
 
         ventaRepo.deleteById(codigo_venta);
@@ -190,10 +193,10 @@ public class VentaService implements IVentaService{
     public void requestValidation(BindingResult result) {
         List<String> errors;
 
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             errors = result.getFieldErrors()
                     .stream()
-                    .map(err -> "El campo '"+ err.getField() +"' "+ err.getDefaultMessage())
+                    .map(err -> "El campo '" + err.getField() + "' " + err.getDefaultMessage())
                     .toList();
 
             throw new RequestException(errors);
@@ -204,7 +207,7 @@ public class VentaService implements IVentaService{
     public Venta checkExistence(Long codigo_venta) {
         Venta venta = ventaRepo.findById(codigo_venta).orElse(null);
 
-        if(venta == null){
+        if (venta == null) {
             throw new CheckExistenceException("El codigo de venta ingresado no esta relacionado a ninguna venta.");
         }
 
@@ -213,26 +216,26 @@ public class VentaService implements IVentaService{
 
     @Override
     public VentaConDetalleDTO fallbackfindByIdVenta(Throwable t) {
-        throw new FallbackException("Fallo la conexion con detalles-ventas-service: "+t.getMessage());
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service: " + t.getMessage());
     }
 
     @Override
     public Venta fallbackcreateVenta(Throwable t) {
-        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: " + t.getMessage());
     }
 
     @Override
     public VentaConDetalleDTO fallbackdeleteVenta(Throwable t) {
-        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: " + t.getMessage());
     }
 
     @Override
     public List<DetalleProductoDTO> fallbackfindProductoById(Throwable t) {
-        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: "+t.getMessage());
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o productos-service: " + t.getMessage());
     }
 
     @Override
     public MayorVentaDTO fallbackfindMayorVenta(Throwable t) {
-        throw new FallbackException("Fallo la conexion con detalles-ventas-service o clientes-service: "+t.getMessage());
+        throw new FallbackException("Fallo la conexion con detalles-ventas-service o clientes-service: " + t.getMessage());
     }
 }

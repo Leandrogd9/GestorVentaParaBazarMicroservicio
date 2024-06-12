@@ -10,8 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class VentasServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VentasServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(VentasServiceApplication.class, args);
+    }
 
 }

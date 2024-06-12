@@ -1,4 +1,5 @@
 package com.bazar.ventasservice.dto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
