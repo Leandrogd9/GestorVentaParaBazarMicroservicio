@@ -1,4 +1,25 @@
 services:
+  #Configuracion de PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOSTS: db-clientes-service,db-ventas-service,db-detalles-ventas-service,db-productos-service,db-auth-service
+    depends_on:
+      db-clientes-service:
+        condition: service_started
+      db-ventas-service:
+        condition: service_started
+      db-detalles-ventas-service:
+        condition: service_started
+      db-productos-service:
+        condition: service_started
+      db-auth-service:
+        condition: service_started
+    networks:
+      - bazarmicroservicio
   #Configuracion de Config Server
   config-sv:
     build: ./config-sv
