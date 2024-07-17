@@ -39,7 +39,7 @@ services:
     build: ./clientes-service
     restart: always
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       db-clientes-service:
         condition: service_started
@@ -75,7 +75,7 @@ services:
     build: ./ventas-service
     restart: always
     ports:
-      - "8081:8081"
+      - "8082:8082"
     depends_on:
       db-ventas-service:
         condition: service_started
@@ -111,7 +111,7 @@ services:
     build: ./detalles-ventas-service
     restart: always
     ports:
-      - "8082:8082"
+      - "8083:8083"
     depends_on:
       db-detalles-ventas-service:
         condition: service_started
@@ -147,7 +147,7 @@ services:
     build: ./productos-service
     restart: always
     ports:
-      - "8083:8083"
+      - "8084:8084"
     depends_on:
       db-productos-service:
         condition: service_started
