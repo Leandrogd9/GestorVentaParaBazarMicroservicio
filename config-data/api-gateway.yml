@@ -4,6 +4,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://eureka-sv:8761/eureka
+  instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 
 spring:
   cloud:
@@ -12,3 +13,26 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        - id: clientes-service
+          uri: lb://clientes-service
+          predicates:
+            - Path=/clientes/**
+          filters:
+            - AuthFilter
+        - id: detalles-ventas-service
+          uri: lb://detalles-ventas-service
+          predicates:
+            - Path=/detalles/**
+        - id: productos-service
+          uri: lb://productos-service
+          predicates:
+            - Path=/productos/**
+        - id: ventas-service
+          uri: lb://ventas-service
+          predicates:
+            - Path=/ventas/**
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**

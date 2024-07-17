@@ -178,12 +178,12 @@ services:
       - "3309:3306"
     networks:
       - bazarmicroservicio
-  #Configuracion del auth Clientes con su base de datos correspondiente
+  #Configuracion del servicio de auth con su base de datos correspondiente
   auth-service:
     build: ./auth-service
     restart: always
     ports:
-      - "8084:8084"
+      - "9091:9091"
     depends_on:
       db-auth-service:
         condition: service_started
