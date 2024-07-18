@@ -218,6 +218,7 @@ services:
       DATABASE_URL: ${DATABASE_URL_AUTH}
       DATABASE_USER: ${MYSQL_USER}
       DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
     networks:
       - bazarmicroservicio
   db-auth-service:
