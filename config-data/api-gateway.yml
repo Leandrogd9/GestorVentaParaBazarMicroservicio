@@ -15,17 +15,17 @@ spring:
           lower-case-service-id: true
       routes:
         - id: clientes-service
-          uri: lb://clientes-service
+          uri: lb://CLIENTES-SERVICE
           predicates:
             - Path=/clientes/**
           filters:
             - AuthFilter
         - id: detalles-ventas-service
-          uri: lb://detalles-ventas-service
+          uri: lb://DETALLES-VENTAS-SERVICE
           predicates:
             - Path=/detalles/**
         - id: productos-service
-          uri: lb://productos-service
+          uri: lb://PRODUCTOS-SERVICE
           predicates:
             - Path=/productos/**
         - id: ventas-service
@@ -33,6 +33,6 @@ spring:
           predicates:
             - Path=/ventas/**
         - id: auth-service
-          uri: lb://auth-service
+          uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
