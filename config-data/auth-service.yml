@@ -15,3 +15,6 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
+
+jwt:
+  secret: Py5KL3yQMzcuhH4B7tA3PZ2kjs8G8vHv
