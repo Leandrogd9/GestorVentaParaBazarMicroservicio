@@ -19,13 +19,9 @@ import java.util.Date;
 public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
-    @Value("${prueba}")
-    private String prueba;
-
 
     @PostConstruct
     protected void init(){
-        System.out.println("Esto es una prueba"+prueba);
         System.out.println("Esto es una prueba"+secret);
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
         System.out.println("Esto es una prueba"+secret);
