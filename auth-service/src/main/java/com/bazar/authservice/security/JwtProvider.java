@@ -22,9 +22,7 @@ public class JwtProvider {
 
     @PostConstruct
     protected void init(){
-        System.out.println("Esto es una prueba"+secret);
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
-        System.out.println("Esto es una prueba"+secret);
     }
 
     public String createToken(AuthUser authUser){
