@@ -5,6 +5,3 @@ spring:
     config:
       enabled: true
       uri: http://config-sv:8888
-
-jwt:
-  secret: ${JWT_SECRET}
