@@ -54,6 +54,7 @@ public class AuthUserService {
         if (!jwtProvider.validateToken(token)){
             return null;
         }
+
         String username = jwtProvider.getUsernameFromToken(token);
 
         if (!authUserRepository.findByUsername(username).isPresent()) {

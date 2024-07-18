@@ -31,6 +31,7 @@ public class AuthUserController {
         }
         return ResponseEntity.ok(tokenDTO);
     }
+
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody AuthUserDTO dto) {
         AuthUser authUser = authUserService.save(dto);

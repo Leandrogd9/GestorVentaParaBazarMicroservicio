@@ -1,7 +1,6 @@
 package com.bazar.apigateway.configuration;
 
 import com.bazar.apigateway.dto.TokenDto;
-import com.bazar.apigateway.repository.AuthAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -18,9 +17,6 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
 
     private WebClient.Builder webClient;
 
-    @Autowired
-    private AuthAPI authApi;
-
     public AuthFilter(WebClient.Builder webClient) {
         super(Config.class);
         this.webClient = webClient;
@@ -28,7 +24,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
 
     @Override
     public GatewayFilter apply(Config config) {
-        return (((exchange, chain) -> {
+        return ((exchange, chain) -> {
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                 return onError(exchange,HttpStatus.BAD_REQUEST);
             }
@@ -45,28 +41,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                         t.getToken();
                         return exchange;
                     }).flatMap(chain::filter);
-        }));
+        });
     }
-
-    /*@Override
-    public GatewayFilter apply(Config config) {
-        return (((exchange, chain) -> {
-            if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                return onError(exchange,HttpStatus.BAD_REQUEST);
-            }
-
-            String tokenHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-            String [] chunks = tokenHeader.split(" ");
-            if (chunks.length != 2 || !chunks[0].equals("Bearer")) {
-                return onError(exchange, HttpStatus.BAD_REQUEST);
-            }
-
-            authApi.validate(chunks[1]);
-
-            return chain.filter(exchange);
-        }));
-    }
-     */
 
     public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status) {
         ServerHttpResponse response = exchange.getResponse();
