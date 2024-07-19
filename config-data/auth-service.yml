@@ -22,7 +22,7 @@ admin-paths:
       uri: "/clientes/crear"
       method: "POST"
     -
-      uri: "/actualizar/{1}[1-9]+[0-9]*"
+      uri: "/actualizar/{id}"
       method: "PUT"
 
 jwt:
