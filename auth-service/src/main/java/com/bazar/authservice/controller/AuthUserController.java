@@ -1,6 +1,7 @@
 package com.bazar.authservice.controller;
 
 import com.bazar.authservice.dto.AuthUserDTO;
+import com.bazar.authservice.dto.RequestDTO;
 import com.bazar.authservice.dto.TokenDTO;
 import com.bazar.authservice.model.AuthUser;
 import com.bazar.authservice.service.AuthUserService;
@@ -24,8 +25,8 @@ public class AuthUserController {
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> validate(@RequestParam String token) {
-        TokenDTO tokenDTO = authUserService.validate(token);
+    public ResponseEntity<?> validate(@RequestParam String token, @RequestBody RequestDTO requestDTO) {
+        TokenDTO tokenDTO = authUserService.validate(token, requestDTO);
         if (tokenDTO == null) {
             return ResponseEntity.badRequest().build();
         }

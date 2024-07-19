@@ -1,6 +1,7 @@
 package com.bazar.authservice.service;
 
 import com.bazar.authservice.dto.AuthUserDTO;
+import com.bazar.authservice.dto.RequestDTO;
 import com.bazar.authservice.dto.TokenDTO;
 import com.bazar.authservice.model.AuthUser;
 import com.bazar.authservice.repository.AuthUserRepository;
@@ -8,6 +9,7 @@ import com.bazar.authservice.security.JwtProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -50,8 +52,8 @@ public class AuthUserService {
         return null;
     }
 
-    public TokenDTO validate(String token) {
-        if (!jwtProvider.validateToken(token)){
+    public TokenDTO validate(String token, RequestDTO requestDTO) {
+        if (!jwtProvider.validateToken(token, requestDTO)){
             return null;
         }
 
