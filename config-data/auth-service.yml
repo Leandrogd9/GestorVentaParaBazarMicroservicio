@@ -16,5 +16,14 @@ spring:
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
 
+admin-paths:
+  paths:
+    -
+      uri: "/clientes/crear"
+      method: "POST"
+    -
+      uri: "/actualizar/{1}[1-9]+[0-9]*"
+      method: "PUT"
+
 jwt:
   secret: ${JWT_SECRET}

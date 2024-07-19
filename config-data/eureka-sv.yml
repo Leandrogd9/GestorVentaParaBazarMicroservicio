@@ -7,12 +7,3 @@ eureka:
     fetch-registry: false
   instance:
     lease-renewal-interval-in-seconds: 0
-
-admin-paths:
-  paths:
-    -
-      uri: "/clientes/crear"
-      method: "POST"
-    -
-      uri: "/actualizar/{1}[1-9]+[0-9]*"
-      method: "PUT"
