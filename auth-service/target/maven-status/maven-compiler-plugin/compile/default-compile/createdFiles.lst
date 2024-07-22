@@ -1,0 +1,15 @@
+com\bazar\authservice\dto\RequestDTO.class
+com\bazar\authservice\enums\Rol.class
+com\bazar\authservice\dto\AuthUserDTO.class
+com\bazar\authservice\security\JwtProvider.class
+com\bazar\authservice\dto\TokenDTO.class
+com\bazar\authservice\model\AuthUser$AuthUserBuilder.class
+com\bazar\authservice\dto\NewUserDTO.class
+com\bazar\authservice\service\AuthUserService.class
+com\bazar\authservice\AuthServiceApplication.class
+com\bazar\authservice\security\RouteValidator.class
+com\bazar\authservice\repository\AuthUserRepository.class
+com\bazar\authservice\configuration\PasswordEnconderConfig.class
+com\bazar\authservice\controller\AuthUserController.class
+com\bazar\authservice\configuration\SecurityConfig.class
+com\bazar\authservice\model\AuthUser.class

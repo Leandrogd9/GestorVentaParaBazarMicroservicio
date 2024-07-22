@@ -1,0 +1,11 @@
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\repository\ProductoRepository.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\exception\CheckExistenceException.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\model\Producto.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\dto\CustomErrorResponse.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\exception\RequestException.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\service\ProductoService.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\controller\ControllerAdvice.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\service\IProductoService.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\ProductosServiceApplication.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\controller\ProductoController.java
+L:\PORTFOLIO\Bazar_microservicio\productos-service\src\main\java\com\bazar\productosservice\exception\FaltaStockException.java

@@ -1,0 +1,12 @@
+com\bazar\productosservice\service\IProductoService.class
+com\bazar\productosservice\exception\CheckExistenceException.class
+com\bazar\productosservice\dto\CustomErrorResponse.class
+com\bazar\productosservice\controller\ControllerAdvice.class
+com\bazar\productosservice\exception\FaltaStockException.class
+com\bazar\productosservice\controller\ProductoController.class
+com\bazar\productosservice\exception\RequestException.class
+com\bazar\productosservice\dto\CustomErrorResponse$CustomErrorResponseBuilder.class
+com\bazar\productosservice\model\Producto.class
+com\bazar\productosservice\service\ProductoService.class
+com\bazar\productosservice\ProductosServiceApplication.class
+com\bazar\productosservice\repository\ProductoRepository.class

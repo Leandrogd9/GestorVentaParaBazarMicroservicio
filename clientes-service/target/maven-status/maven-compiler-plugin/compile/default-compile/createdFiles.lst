@@ -1,0 +1,11 @@
+com\bazar\clienteservice\controller\ControllerAdvice.class
+com\bazar\clienteservice\dto\CustomErrorResponse.class
+com\bazar\clienteservice\service\IClienteService.class
+com\bazar\clienteservice\exception\CheckExistenceException.class
+com\bazar\clienteservice\respository\ClienteRepository.class
+com\bazar\clienteservice\model\Cliente.class
+com\bazar\clienteservice\dto\CustomErrorResponse$CustomErrorResponseBuilder.class
+com\bazar\clienteservice\controller\ClienteController.class
+com\bazar\clienteservice\service\ClienteService.class
+com\bazar\clienteservice\ClientesServiceApplication.class
+com\bazar\clienteservice\exception\RequestException.class

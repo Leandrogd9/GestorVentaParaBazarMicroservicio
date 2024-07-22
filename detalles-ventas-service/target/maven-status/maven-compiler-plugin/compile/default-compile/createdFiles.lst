@@ -1,0 +1,9 @@
+com\bazar\detallesventasservice\model\DetalleVenta.class
+com\bazar\detallesventasservice\controller\DetalleVentaController.class
+com\bazar\detallesventasservice\repository\DetalleVentaRepository.class
+com\bazar\detallesventasservice\DetallesVentasServiceApplication.class
+com\bazar\detallesventasservice\service\DetalleVentaService.class
+com\bazar\detallesventasservice\dto\CustomErrorResponse$CustomErrorResponseBuilder.class
+com\bazar\detallesventasservice\dto\CustomErrorResponse.class
+com\bazar\detallesventasservice\controller\ControllerAdvice.class
+com\bazar\detallesventasservice\service\IDetalleVentaService.class

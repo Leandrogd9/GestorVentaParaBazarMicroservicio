@@ -1,6 +1,7 @@
 package com.bazar.authservice.controller;
 
 import com.bazar.authservice.dto.AuthUserDTO;
+import com.bazar.authservice.dto.NewUserDTO;
 import com.bazar.authservice.dto.RequestDTO;
 import com.bazar.authservice.dto.TokenDTO;
 import com.bazar.authservice.model.AuthUser;
@@ -34,7 +35,7 @@ public class AuthUserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody AuthUserDTO dto) {
+    public ResponseEntity<?> create(@RequestBody NewUserDTO dto) {
         AuthUser authUser = authUserService.save(dto);
         if (authUser == null) {
             return ResponseEntity.badRequest().build();

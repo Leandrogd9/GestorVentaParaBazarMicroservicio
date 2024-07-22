@@ -30,7 +30,8 @@ public class JwtProvider {
         return Jwts.builder()
                 .signWith(this.getPrivateKey(secret))
                 .setSubject(authUser.getUsername())
-                .claim("role", authUser.getRole())
+                .claim("role", authUser.getRol().name())
+                .claim("id", authUser.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 3600*1000))
                 .compact();

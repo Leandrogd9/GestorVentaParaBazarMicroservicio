@@ -1,0 +1,10 @@
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\dto\CustomErrorResponse.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\respository\ClienteRepository.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\service\IClienteService.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\controller\ClienteController.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\exception\CheckExistenceException.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\model\Cliente.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\exception\RequestException.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\controller\ControllerAdvice.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\service\ClienteService.java
+L:\PORTFOLIO\Bazar_microservicio\clientes-service\src\main\java\com\bazar\clienteservice\ClientesServiceApplication.java

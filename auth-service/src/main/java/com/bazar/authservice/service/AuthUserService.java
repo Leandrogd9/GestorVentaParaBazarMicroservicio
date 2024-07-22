@@ -1,8 +1,10 @@
 package com.bazar.authservice.service;
 
 import com.bazar.authservice.dto.AuthUserDTO;
+import com.bazar.authservice.dto.NewUserDTO;
 import com.bazar.authservice.dto.RequestDTO;
 import com.bazar.authservice.dto.TokenDTO;
+import com.bazar.authservice.enums.Rol;
 import com.bazar.authservice.model.AuthUser;
 import com.bazar.authservice.repository.AuthUserRepository;
 import com.bazar.authservice.security.JwtProvider;
@@ -25,7 +27,7 @@ public class AuthUserService {
     @Autowired
     private JwtProvider jwtProvider;
 
-    public AuthUser save(AuthUserDTO dto) {
+    public AuthUser save(NewUserDTO dto) {
         Optional<AuthUser> user = authUserRepository.findByUsername(dto.getUsername());
 
         if (user.isPresent()) {
@@ -33,7 +35,11 @@ public class AuthUserService {
         }
 
         String password = passwordEncoder.encode(dto.getPassword());
-        AuthUser authUser = AuthUser.builder().username(dto.getUsername()).password(password).build();
+        AuthUser authUser = AuthUser.builder()
+                .username(dto.getUsername())
+                .password(password)
+                .rol(Rol.valueOf(dto.getRol().toUpperCase()))
+                .build();
 
         return authUserRepository.save(authUser);
     }

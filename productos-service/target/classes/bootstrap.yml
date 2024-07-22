@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: productos-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://config-sv:8888

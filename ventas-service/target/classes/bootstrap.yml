@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: ventas-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://config-sv:8888

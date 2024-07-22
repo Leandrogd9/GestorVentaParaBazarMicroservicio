@@ -22,5 +22,5 @@ public class AuthUser {
     @NotBlank(message = "no puede estar en blanco este registro.")
     private String password;
     @Enumerated(EnumType.STRING)
-    private Rol role;
+    private Rol rol;
 }

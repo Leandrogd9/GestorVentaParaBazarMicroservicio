@@ -1,0 +1,6 @@
+com\bazar\apigateway\configuration\AuthFilter.class
+com\bazar\apigateway\dto\RequestDTO.class
+com\bazar\apigateway\dto\TokenDto.class
+com\bazar\apigateway\ApiGatewayApplication.class
+com\bazar\apigateway\configuration\WebClientConfig.class
+com\bazar\apigateway\configuration\AuthFilter$Config.class

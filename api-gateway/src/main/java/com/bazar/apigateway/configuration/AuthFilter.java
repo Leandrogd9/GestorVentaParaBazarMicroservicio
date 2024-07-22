@@ -2,7 +2,6 @@ package com.bazar.apigateway.configuration;
 
 import com.bazar.apigateway.dto.RequestDTO;
 import com.bazar.apigateway.dto.TokenDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -51,7 +50,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     public Mono<Void> onError(ServerWebExchange exchange, HttpStatus status) {
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(status);
-        response.getHeaders().set("X-Error-Message","Error capo");
+        response.getHeaders().set("X-Error-Message","Error");
         return response.setComplete();
     }
 
