@@ -29,9 +29,9 @@ public class JwtProvider {
     public String createToken(AuthUser authUser){
         return Jwts.builder()
                 .signWith(this.getPrivateKey(secret))
-                .setSubject(authUser.getUsername())
+                .setSubject(String.valueOf(authUser.getId()))
+                .claim("username", authUser.getUsername())
                 .claim("role", authUser.getRol().name())
-                .claim("id", authUser.getId())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + 3600*1000))
                 .compact();
