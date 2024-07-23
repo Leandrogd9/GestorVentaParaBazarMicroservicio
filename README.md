@@ -7,10 +7,13 @@ El sistema de gestión de ventas para un bazar es una aplicación web diseñada 
 El sistema se basa en las siguientes tecnologías:
 - Spring Boot: Un marco de desarrollo de aplicaciones Java que simplifica la creación de aplicaciones Spring.
 - Spring Cloud: Conjunto de herramientas y librerías de código abierto desarrolladas para facilitar la creación y el despliegue de aplicaciones en la nube con Java.
+- Spring Security: Un marco de seguridad para aplicaciones Java que proporciona funciones de autenticación, autorización y control de acceso.
 - Hibernate: Un marco ORM (Mapeo Objeto-Relacional) que simplifica el acceso a la base de datos relacional.
 - MySQL: Un sistema de gestión de bases de datos relacional de código abierto.
 - Maven: Una herramienta de gestión de proyectos y construcción de software.
 - Docker: Tecnología que te permite armar, administrar y desplegar aplicaciones de manera mucho más fácil mediante el uso de contenedores.
+- Postman: Una herramienta de cliente HTTP que permite enviar y recibir solicitudes HTTP, inspeccionar respuestas y probar APIs.
+- JWT (JSON Web Tokens): Un formato de token para la autenticación como alternativa a las sesiones basadas en cookies.
 
 # Patrones Aplicados
 
