@@ -1,7 +1,9 @@
-L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\configuration\AuthAPI.java
 L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\dto\RequestDTO.java
-L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\configuration\WebClientConfig.java
 L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\dto\TokenDto.java
 L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\configuration\RouteValidator.java
+L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\configuration\AppConfig.java
+L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\exception\CustomErrorResponse.java
+L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\exception\InvalidToken.java
 L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\filter\AuthFilter.java
+L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\exception\GlobalExceptionHandler.java
 L:\PORTFOLIO\Bazar_microservicio\api-gateway\src\main\java\com\bazar\apigateway\ApiGatewayApplication.java

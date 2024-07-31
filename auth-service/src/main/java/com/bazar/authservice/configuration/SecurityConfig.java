@@ -14,12 +14,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer -> customizer.anyRequest().permitAll())
                 .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .build();
-        return http.build();
     }
 
     @Bean

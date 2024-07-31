@@ -3,6 +3,7 @@ package com.bazar.authservice.configuration;
 import com.bazar.authservice.exception.CheckExistenceException;
 import com.bazar.authservice.exception.CustomErrorResponse;
 import com.bazar.authservice.exception.InvalidToken;
+import com.bazar.authservice.exception.LoginFailure;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.NotAuthorizedException;
 import org.springframework.dao.DataAccessException;
@@ -53,8 +54,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NotAuthorizedException.class)
-    public ResponseEntity<CustomErrorResponse> runtimeExceptionHandler(NotAuthorizedException ex, HttpServletRequest request) {
+    @ExceptionHandler(LoginFailure.class)
+    public ResponseEntity<CustomErrorResponse> runtimeExceptionHandler(LoginFailure ex, HttpServletRequest request) {
         CustomErrorResponse error = CustomErrorResponse.builder()
                 .timestamp(LocalDateTime.now())
                 .status(HttpStatus.UNAUTHORIZED.value())
@@ -62,7 +63,7 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(InvalidToken.class)
@@ -74,6 +75,6 @@ public class GlobalExceptionHandler {
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 }

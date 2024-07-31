@@ -7,6 +7,7 @@ import com.bazar.authservice.dto.RequestDTO;
 import com.bazar.authservice.enums.Rol;
 import com.bazar.authservice.exception.CheckExistenceException;
 import com.bazar.authservice.exception.InvalidToken;
+import com.bazar.authservice.exception.LoginFailure;
 import com.bazar.authservice.jwt.IJwtService;
 import com.bazar.authservice.model.AuthUser;
 import com.bazar.authservice.repository.AuthUserRepository;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @Service
 public class AuthService implements IAuthService {
 
-    private static final String FOUND = "El usuario que desea %s no existe.";
+    private static final String FOUND = "El usuario que desea %s ya existe.";
     private static final String UNAUTHORIZED = "Su credenciales de inicio de sesion no son correctas.";
 
     @Autowired
@@ -54,11 +55,13 @@ public class AuthService implements IAuthService {
     @Override
     public String login(AuthUserDTO dto) {
         Optional<AuthUser> authUser = authUserRepository.findByUsername(dto.getUsername());
+
         if (authUser.isEmpty()) {
-            throw new NotAuthorizedException(UNAUTHORIZED);
+            throw new LoginFailure(UNAUTHORIZED);
         }
+
         if (!passwordEncoder.matches(dto.getPassword(), authUser.get().getPassword())) {
-            throw new NotAuthorizedException(UNAUTHORIZED);
+            throw new LoginFailure(UNAUTHORIZED);
         }
 
         return jwtService.createToken(authUser.get());

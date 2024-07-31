@@ -10,6 +10,7 @@ L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservic
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\CheckExistenceException.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\CustomErrorResponse.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\InvalidToken.java
+L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\LoginFailure.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\jwt\IJwtService.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\jwt\JwtService.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\model\AuthUser.java
