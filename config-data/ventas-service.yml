@@ -16,9 +16,12 @@ spring:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}
     password: ${DATABASE_PASSWORD}
-
+  cloud:
+    openfeign:
+      client:
+        config:
+          authapi:
+            url: http://api-gateway:433/clientes
 feign:
   detalleapi:
     url: http://api-gateway:443/detalles
-  clienteapi:
-    url: http://api-gateway:433/clientes

@@ -9,11 +9,6 @@ eureka:
 
 spring:
   cloud:
-    openfeign:
-      client:
-        config:
-          authapi:
-            url: http://api-gateway/auth
     gateway:
       discovery:
         locator:
