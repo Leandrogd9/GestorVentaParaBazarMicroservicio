@@ -25,6 +25,9 @@ admin-paths:
     -
       uri: "/clientes/actualizar/{1}[1-9]+[0-9]*"
       method: "PUT"
+    -
+      uri: "/auth/create"
+      method: "POST"
 
 jwt:
   secret: ${JWT_SECRET}

@@ -9,6 +9,11 @@ eureka:
 
 spring:
   cloud:
+    openfeign:
+      client:
+        config:
+          authapi:
+            url: http://api-gateway/auth
     gateway:
       discovery:
         locator:
@@ -25,15 +30,32 @@ spring:
           uri: lb://DETALLES-VENTAS-SERVICE
           predicates:
             - Path=/detalles/**
+          filters:
+            - AuthFilter
         - id: productos-service
           uri: lb://PRODUCTOS-SERVICE
           predicates:
             - Path=/productos/**
+          filters:
+            - AuthFilter
         - id: ventas-service
           uri: lb://VENTAS-SERVICE
           predicates:
             - Path=/ventas/**
+          filters:
+            - AuthFilter
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/auth/**
+          filters:
+            - AuthFilter
+
+public-paths:
+  paths:
+    -
+      uri: "/auth/login"
+      method: "POST"
+    -
+      uri: "/auth/validate"
+      method: "POST"

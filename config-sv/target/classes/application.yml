@@ -15,5 +15,5 @@ spring:
           search-paths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
-          default-label: master
+          default-label: seguridad
           clone-on-start: true
