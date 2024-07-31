@@ -49,7 +49,7 @@ spring:
           predicates:
             - Path=/auth/**
           filters:
-            - AuthFilter
+
 
 public-paths:
   paths:
