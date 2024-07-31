@@ -45,7 +45,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
 
             return webClient.build()
                     .post()
-                    .uri("http://auth-service/auth/validate?token=" + header[1])
+                    .uri("http://api-gateway/auth/validate?token=" + header[1])
                     .bodyValue(new RequestDTO(exchange.getRequest().getPath().toString(), exchange.getRequest().getMethod().toString()))
                     .retrieve().bodyToMono(String.class)
                     .map(t -> exchange)
