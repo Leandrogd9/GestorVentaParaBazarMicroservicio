@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "detalleapi")
+@FeignClient(name = "detalleapi", url = "http://api-gateway:443/detalles-ventas-service/detalles")
 public interface DetalleVentaAPI {
 
     @DeleteMapping("/eliminar/{codigo_venta}")

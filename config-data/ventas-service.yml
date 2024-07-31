@@ -19,6 +19,6 @@ spring:
 
 feign:
   detalleapi:
-    url: http://api-gateway/detalles-ventas-service/detalles
+    url: http://api-gateway:443/detalles-ventas-service/detalles
   clienteapi:
-    url: http://api-gateway/clientes-service/clientes
+    url: http://api-gateway/clientes
