@@ -50,7 +50,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
                     .retrieve().bodyToMono(String.class)
                     .map(t -> exchange)
                     .flatMap(chain::filter)
-                    .onErrorResume(error -> Mono.error(new InvalidToken("No token no es valido para acceder a esta ruta.")));
+                    .onErrorResume(error -> Mono.error(new InvalidToken("El token no es valido para acceder a esta ruta.")));
         });
     }
 
