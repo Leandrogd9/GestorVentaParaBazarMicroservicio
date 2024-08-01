@@ -20,8 +20,5 @@ spring:
     openfeign:
       client:
         config:
-          authapi:
-            url: http://api-gateway:433/clientes
-feign:
-  detalleapi:
-    url: http://api-gateway:443/detalles
+          detalleapi:
+            url: http://api-gateway:443/detalles-ventas-service/detalles
