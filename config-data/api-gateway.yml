@@ -24,6 +24,14 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
+        - id: api-gateway
+          uri: lb://APY-GATEWAY
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthFilter
         - id: clientes-service
           uri: lb://CLIENTES-SERVICE
           predicates:
@@ -46,12 +54,6 @@ spring:
           uri: lb://VENTAS-SERVICE
           predicates:
             - Path=/ventas/**
-          filters:
-            - AuthFilter
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
-          predicates:
-            - Path=/auth/**
           filters:
             - AuthFilter
 
