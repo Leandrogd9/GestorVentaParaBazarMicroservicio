@@ -1,11 +1,10 @@
-package com.bazar.authservice.configuration;
+package com.bazar.authservice.controller;
 
 import com.bazar.authservice.exception.CheckExistenceException;
-import com.bazar.authservice.exception.CustomErrorResponse;
+import com.bazar.authservice.dto.CustomErrorResponse;
 import com.bazar.authservice.exception.InvalidToken;
 import com.bazar.authservice.exception.LoginFailure;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.NotAuthorizedException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

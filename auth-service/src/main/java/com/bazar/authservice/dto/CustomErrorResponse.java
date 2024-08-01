@@ -1,4 +1,4 @@
-package com.bazar.authservice.exception;
+package com.bazar.authservice.dto;
 
 import lombok.Builder;
 import lombok.Data;

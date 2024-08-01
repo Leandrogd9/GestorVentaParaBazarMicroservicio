@@ -23,7 +23,7 @@ admin-paths:
       uri: "/clientes/crear"
       method: "POST"
     -
-      uri: "/clientes/actualizar/{1}[1-9]+[0-9]*"
+      uri: "/clientes/actualizar/{1}.+"
       method: "PUT"
     -
       uri: "/auth/create"
