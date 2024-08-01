@@ -24,10 +24,6 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
-        - id: api-gateway
-          uri: lb://APY-GATEWAY
-          predicates:
-            - Method=GET,POST,DELETE,PUT
         - id: auth-service
           uri: lb://AUTH-SERVICE
           predicates:
