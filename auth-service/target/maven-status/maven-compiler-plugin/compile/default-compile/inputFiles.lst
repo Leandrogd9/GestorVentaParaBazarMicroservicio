@@ -1,14 +1,14 @@
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\AuthServiceApplication.java
-L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\configuration\GlobalExceptionHandler.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\configuration\RouteValidator.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\configuration\SecurityConfig.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\controller\AuthUserController.java
+L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\controller\GlobalExceptionHandler.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\dto\AuthUserDTO.java
+L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\dto\CustomErrorResponse.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\dto\NewUserDTO.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\dto\RequestDTO.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\enums\Rol.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\CheckExistenceException.java
-L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\CustomErrorResponse.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\InvalidToken.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\exception\LoginFailure.java
 L:\PORTFOLIO\Bazar_microservicio\auth-service\src\main\java\com\bazar\authservice\jwt\IJwtService.java
