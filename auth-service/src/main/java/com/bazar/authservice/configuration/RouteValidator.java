@@ -1,10 +1,9 @@
-package com.bazar.authservice.security;
+package com.bazar.authservice.configuration;
 
 import com.bazar.authservice.dto.RequestDTO;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.regex.Pattern;
 

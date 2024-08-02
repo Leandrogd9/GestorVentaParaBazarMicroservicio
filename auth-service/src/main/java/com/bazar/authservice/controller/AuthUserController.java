@@ -3,43 +3,39 @@ package com.bazar.authservice.controller;
 import com.bazar.authservice.dto.AuthUserDTO;
 import com.bazar.authservice.dto.NewUserDTO;
 import com.bazar.authservice.dto.RequestDTO;
-import com.bazar.authservice.dto.TokenDTO;
 import com.bazar.authservice.model.AuthUser;
-import com.bazar.authservice.service.AuthUserService;
+import com.bazar.authservice.service.IAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthUserController {
+
     @Autowired
-    private AuthUserService authUserService;
+    private IAuthService authService;
+
+    @PostMapping("/create")
+    public ResponseEntity<AuthUser> create(@RequestBody NewUserDTO dto) {
+        return ResponseEntity.ok(authService.create(dto));
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthUserDTO dto) {
-        TokenDTO tokenDTO = authUserService.login(dto);
-        if (tokenDTO == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(tokenDTO);
+    public ResponseEntity<Map<String, String>> login(@RequestBody AuthUserDTO dto) {
+        Map<String, String> body = new HashMap<>();
+        String token = authService.login(dto);
+        body.put("token", token);
+        body.put("message","Inicio de sesion exitoso!");
+        return ResponseEntity.ok().header("Authorization","Bearer "+token).body(body);
     }
 
     @PostMapping("/validate")
-    public ResponseEntity<?> validate(@RequestParam String token, @RequestBody RequestDTO requestDTO) {
-        TokenDTO tokenDTO = authUserService.validate(token, requestDTO);
-        if (tokenDTO == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(tokenDTO);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody NewUserDTO dto) {
-        AuthUser authUser = authUserService.save(dto);
-        if (authUser == null) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok(authUser);
+    public ResponseEntity<String> validate(@RequestParam String token, @RequestBody RequestDTO requestDTO) {
+        String validToken = authService.validate(token, requestDTO);
+        return ResponseEntity.ok().header("Authorization","Bearer "+validToken).body(validToken);
     }
 }

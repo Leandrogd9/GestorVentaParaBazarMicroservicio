@@ -14,7 +14,22 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - AddResponseHeader=Access-Control-Allow-Origin, *
+      globalcors:
+        cors-configurations:
+          "[/**]":
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
       routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
+          filters:
+            - AuthFilter
         - id: clientes-service
           uri: lb://CLIENTES-SERVICE
           predicates:
@@ -25,15 +40,26 @@ spring:
           uri: lb://DETALLES-VENTAS-SERVICE
           predicates:
             - Path=/detalles/**
+          filters:
+            - AuthFilter
         - id: productos-service
           uri: lb://PRODUCTOS-SERVICE
           predicates:
             - Path=/productos/**
+          filters:
+            - AuthFilter
         - id: ventas-service
           uri: lb://VENTAS-SERVICE
           predicates:
             - Path=/ventas/**
-        - id: auth-service
-          uri: lb://AUTH-SERVICE
-          predicates:
-            - Path=/auth/**
+          filters:
+            - AuthFilter
+
+public-paths:
+  paths:
+    -
+      uri: "/auth/login"
+      method: "POST"
+    -
+      uri: "/auth/validate"
+      method: "POST"

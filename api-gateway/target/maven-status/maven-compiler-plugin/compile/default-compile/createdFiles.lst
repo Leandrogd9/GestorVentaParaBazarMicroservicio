@@ -1,6 +1,11 @@
-com\bazar\apigateway\configuration\AuthFilter.class
+com\bazar\apigateway\exception\InvalidToken.class
 com\bazar\apigateway\dto\RequestDTO.class
 com\bazar\apigateway\dto\TokenDto.class
+com\bazar\apigateway\exception\CustomErrorResponse$CustomErrorResponseBuilder.class
+com\bazar\apigateway\exception\CustomErrorResponse.class
+com\bazar\apigateway\exception\GlobalExceptionHandler.class
+com\bazar\apigateway\configuration\RouteValidator.class
 com\bazar\apigateway\ApiGatewayApplication.class
-com\bazar\apigateway\configuration\WebClientConfig.class
-com\bazar\apigateway\configuration\AuthFilter$Config.class
+com\bazar\apigateway\configuration\AppConfig.class
+com\bazar\apigateway\filter\AuthFilter$Config.class
+com\bazar\apigateway\filter\AuthFilter.class
